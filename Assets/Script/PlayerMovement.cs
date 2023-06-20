@@ -14,7 +14,7 @@ public class PlayerMovement: MonoBehaviour, IMoveable
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -23,11 +23,13 @@ public class PlayerMovement: MonoBehaviour, IMoveable
     {
         if(gameObject.name == "Player1")
         {
-            player_rb.transform.position += new Vector3(0, Input.GetAxisRaw("leftPaddle"), 0) * Time.deltaTime * moveSpeed;
+            player_rb.velocity = new Vector2(0, Input.GetAxisRaw("leftPaddle")) * Time.deltaTime * moveSpeed;
+            //player_rb.transform.position += new Vector3(0, Input.GetAxisRaw("leftPaddle"), 0) * Time.deltaTime * moveSpeed;
         }
         else if(gameObject.name == "Player2")
         {
-            player_rb.transform.position += new Vector3(0, Input.GetAxisRaw("rightPaddle"), 0) * Time.deltaTime * moveSpeed;
+            player_rb.velocity = new Vector2(0, Input.GetAxisRaw("rightPaddle")) * Time.deltaTime * moveSpeed;
+            //player_rb.transform.position += new Vector3(0, Input.GetAxisRaw("rightPaddle"), 0) * Time.deltaTime * moveSpeed;
         }
     }
 }

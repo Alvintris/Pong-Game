@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text player1Score;
     [SerializeField] private TMP_Text player2Score;
+    [SerializeField] private Canvas gameOverScreen;
+    [SerializeField] private Canvas startScreen;
 
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
@@ -16,6 +18,18 @@ public class GameManager : MonoBehaviour
     {
         player1Score.SetText(scorePlayer1.ToString());
         player2Score.SetText(scorePlayer2.ToString());
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 0;
+        gameOverScreen.enabled = false;
+        startScreen.enabled = true;
+    }
+
+    private void Update()
+    {
+        GameOver();
     }
 
     public void player1Scored()
@@ -28,5 +42,30 @@ public class GameManager : MonoBehaviour
     {
         scorePlayer2 += 1;
         player2Score.SetText(scorePlayer2.ToString());
+    }
+
+    public void GameOver()
+    {
+        if(scorePlayer1 == 10 || scorePlayer2 == 10)
+        {
+            Time.timeScale = 0;
+            gameOverScreen.enabled = true;
+        }
+    }
+
+    public void ConfirmBtn()
+    {
+        scorePlayer1 = 0;
+        scorePlayer2 = 0;
+        gameOverScreen.enabled = false;
+        startScreen.enabled = true;
+    }
+
+    public void StartBtn()
+    {
+        player1Score.SetText(scorePlayer1.ToString());
+        player2Score.SetText(scorePlayer2.ToString());
+        startScreen.enabled = false;
+        Time.timeScale = 1;
     }
 }
