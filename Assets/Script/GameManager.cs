@@ -10,18 +10,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Canvas gameOverScreen;
     [SerializeField] private Canvas startScreen;
 
+    [SerializeField] private AudioClip[] audioClip;
+    private AudioSource audioSource;
+
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
 
-    // Start is called before the first frame update
     void Awake()
     {
         player1Score.SetText(scorePlayer1.ToString());
         player2Score.SetText(scorePlayer2.ToString());
     }
 
+    public void PlaySound()
+    {
+        audioSource.PlayOneShot(audioClip[0]);
+    }
+
+    public void GoalSoundPlay()
+    {
+        audioSource.PlayOneShot(audioClip[1]);
+    }
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         Time.timeScale = 0;
         gameOverScreen.enabled = false;
         startScreen.enabled = true;

@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    GameManager gM;
+
     private Rigidbody2D ball_rb;
     Vector2 direction;
     [SerializeField] private float speed = 5f;
 
-    // Start is called before the first frame update
     void Start()
     {
+        gM = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         ball_rb = GetComponent<Rigidbody2D>();
         direction.x = Random.Range(0, 2) == 0 ? -1 : 1;
         direction.y = Random.Range(0, 2) == 0 ? -1 : 1;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         ball_rb.velocity = direction * speed;
@@ -33,11 +35,13 @@ public class BallMovement : MonoBehaviour
         if (collision.gameObject.tag == "Boundry")
         {
             direction.y = -direction.y;
+            gM.PlaySound();
         }
         else if(collision.gameObject.tag == "Paddle")
         {
             speed += Random.Range(0.5f, 1.5f);
             direction.x = -direction.x;
+            gM.PlaySound();
         }
     }
 }
