@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
+        Screen.SetResolution(800, 800, false);
+
         audioSource = GetComponent<AudioSource>();
 
         Time.timeScale = 0;
